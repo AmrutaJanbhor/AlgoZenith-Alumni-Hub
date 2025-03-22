@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni HUB VDT</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+            color: #333;
+            text-align: center;
+            font-size: 16px;
+            height: 100vh;
+        }
+
+        h1, h2 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background: rgba(0, 123, 255, 0.9); /* Lighter navbar background */
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid #fff;
+            border-radius: 0 0 10px 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: rgba(0, 123, 255, 0.6);
+            transition: 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: white;
+            color: #007bff;
+            transform: translateY(-5px);
+        }
+
+        /* Special Buttons Styling */
+        .btn-job-listings,
+        .btn-post-job {
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 30px;
+            transition: 0.3s;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .btn-job-listings {
+            background: #28a745;
+        }
+
+        .btn-job-listings:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .btn-post-job {
+            background: #ff9800;
+        }
+
+        .btn-post-job:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+
+        /* Content Area */
+        .container {
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 14px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul li a {
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+
+            .container {
+                max-width: 95%;
+                padding: 20px;
+            }
+
+            .btn-job-listings,
+            .btn-post-job {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+        }
+
+        /* Additional Visual Enhancements */
+        .btn-job-listings, .btn-post-job {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+        }
+
+        .btn-job-listings:hover, .btn-post-job:hover {
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'home1' %}">Home</a></li>
+            <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+            <li><a href="{% url 'users_directory' %}">Search</a></li>
+            <li><a href="{% url 'job_list' %}">Job Listings</a></li>
+            <li><a href="{% url 'create_event' %}">Create Event</a></li>
+            <li><a href="{% url 'event_list' %}">View Events</a></li>
+            <li><a href="{% url 'chat_list' %}">Chat</a></li>
+            <li><a href="{% url 'connection_requests' %}">Requests</a></li>
+            {% if user.role == "alumni" %}
+            <li><a href="{% url 'post_job' %}">Post a Job</a></li>
+            {% endif %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        <!-- Content for the page goes here -->
+        {% endblock %}
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Alumni HUB VDT | All Rights Reserved</p>
+    </div>
+</body>
+
+</html>
