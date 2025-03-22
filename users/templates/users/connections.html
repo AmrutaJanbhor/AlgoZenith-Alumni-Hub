@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="page-title">My Connections</h2>
+
+        <!-- Display Accepted Connections -->
+        <h3 class="section-title">Accepted Connections</h3>
+        {% if connections %}
+            <ul class="connections-list">
+                {% for connection in connections %}
+                    <li class="connection-item">
+                        {% if connection.from_user == request.user %}
+                            <a href="{% url 'profile' connection.to_user.id %}" class="username-link">
+                                {{ connection.to_user.username }}
+                            </a>
+                            <a href="{% url 'chat_room' user_id=connection.to_user.id %}" class="btn-chat">Chat</a>
+                        {% else %}
+                            <a href="{% url 'profile' connection.from_user.id %}" class="username-link">
+                                {{ connection.from_user.username }}
+                            </a>
+                            <a href="{% url 'chat_room' user_id=connection.from_user.id %}" class="btn-chat">Chat</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-connections">You have no connections yet.</p>
+        {% endif %}
+    </div>
+
+    <style>
+        /* Container */
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            background: linear-gradient(135deg, #f3f4f6, #ffffff); /* Subtle gradient */
+        }
+
+        /* Page Titles */
+        .page-title {
+            color: #007bff;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #007bff;
+            display: inline-block;
+            padding-bottom: 5px;
+            font-weight: 500;
+        }
+
+        /* Connections List */
+        .connections-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .connection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+            color: #333;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .connection-item:last-child {
+            border-bottom: none;
+        }
+
+        .connection-item:hover {
+            background-color: #f9f9f9; /* Slight hover effect */
+        }
+
+        /* Username Link */
+        .username-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .username-link:hover {
+            color: #0056b3;
+        }
+
+        /* Chat Button */
+        .btn-chat {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 30px; /* Rounded button for a modern look */
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        .btn-chat:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        /* No Connections Message */
+        .no-connections {
+            color: #6c757d;
+            font-size: 18px;
+            margin-top: 25px;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .page-title {
+                font-size: 24px; /* Slightly smaller title for mobile */
+            }
+
+            .section-title {
+                font-size: 18px; /* Slightly smaller subtitle */
+            }
+
+            .connection-item {
+                font-size: 16px; /* Adjusted font size for smaller screens */
+                padding: 12px;
+            }
+
+            .btn-chat {
+                font-size: 14px; /* Adjust button size for smaller screens */
+                padding: 8px 12px;
+            }
+        }
+    </style>
+{% endblock %}

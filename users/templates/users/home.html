@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Home Banner -->
+    <div class="home-container">
+        <h2>Welcome to <span>Alumni HUB </span> 🎓</h2>
+        <p>Your gateway to alumni connections, career growth, and mentorship.</p>
+    </div>
+
+    <!-- Information Sections -->
+    <section class="info-container">
+        <div class="info-box">
+            <h3>📌 What is Alumni HUB?</h3>
+            <p>
+                Alumni HUB  is a platform designed to bridge the gap between students and alumni. 
+                It helps students connect with experienced alumni for mentorship, job opportunities, and professional growth.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>✨ Why Join Alumni HUB ?</h3>
+            <ul>
+                <li><strong>🤝 Networking:</strong> Connect with alumni across different industries.</li>
+                <li><strong>💼 Career Opportunities:</strong> Access job and internship listings shared by alumni.</li>
+                <li><strong>📚 Mentorship:</strong> Seek guidance from professionals in your field of interest.</li>
+                <li><strong>🎤 Events & Workshops:</strong> Participate in industry-focused events and skill-building sessions.</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📅 Alumni Events</h3>
+            <p>
+                We regularly host events that bring together students and alumni for networking and learning. 
+                These include career fairs, alumni talks, skill workshops, and mentorship sessions.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🚀 Internships & Jobs</h3>
+            <p>
+                Gain access to exclusive job postings and internships provided by alumni. 
+                Many companies prefer hiring through trusted alumni networks.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🏆 Success Stories</h3>
+            <p>
+                Alumni HUB has helped numerous students secure internships, jobs, and career guidance. 
+                Join the platform and be part of an inspiring community!
+            </p>
+        </div>
+    </section>
+
+    <!-- Detailed Info Sections -->
+    <section class="detailed-info">
+        <div class="info-box">
+            <h3>🌐 Build Your Professional Network</h3>
+            <p>
+                Expand your network and stay connected with peers, seniors, and professionals in your industry. 
+                A strong alumni network can be your key to unlocking new career opportunities.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Get Career Advice</h3>
+            <p>
+                Whether you're a student or a recent graduate, get guidance from experienced alumni 
+                who have been through the same journey. Gain insights into industry trends, resume tips, 
+                and interview preparation.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Learn from Alumni Experiences</h3>
+            <p>
+                Read success stories from alumni who have made a mark in their fields. 
+                Learn about their career journeys, challenges faced, and how they overcame them.
+            </p>
+        </div>
+    </section>
+
+    <style>
+        /* Home Page Banner */
+        .home-container {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border-radius: 12px;
+            max-width: 85%;
+            margin: 30px auto;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .home-container:hover {
+            transform: scale(1.02);
+        }
+
+        .home-container h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .home-container h2 span {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .home-container p {
+            font-size: 22px;
+            opacity: 0.9;
+        }
+
+        /* Info Sections */
+        .info-container, .detailed-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 25px;
+            margin: 50px auto;
+            max-width: 90%;
+        }
+
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            max-width: 45%;
+            min-width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .info-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-box h3 {
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box p, .info-box ul {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            margin: 12px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .home-container {
+                max-width: 95%;
+                padding: 50px 20px;
+            }
+
+            .info-container, .detailed-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-box {
+                max-width: 90%;
+                padding: 25px;
+            }
+
+            .home-container h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+{% endblock %}

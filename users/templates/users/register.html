@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        /* Register Form Container */
+        .register-container {
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .register-container:hover {
+            transform: scale(1.02);
+        }
+
+        .register-container h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styles */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .register-form input,
+        .register-form select {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .register-form input:focus,
+        .register-form select:focus {
+            border-color: #007bff;
+            box-shadow: 0px 0px 6px rgba(0, 123, 255, 0.4);
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        /* Submit Button */
+        .register-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 14px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .register-form input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .register-container {
+                max-width: 90%;
+                padding: 20px;
+            }
+
+            .register-container h2 {
+                font-size: 24px;
+            }
+
+            .register-form input {
+                font-size: 14px;
+            }
+
+            .register-form input[type="submit"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="POST" class="register-form">
+            {% csrf_token %}
+            
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            
+            <select name="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="student">Student</option>
+                <option value="alumni">Alumni</option>
+            </select>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+{% endblock %}

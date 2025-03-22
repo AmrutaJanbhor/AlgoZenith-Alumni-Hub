@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="page-title">Incoming Connection Requests</h2>
+
+        {% if pending_requests %}
+            <ul class="request-list">
+                {% for request in pending_requests %}
+                    <li class="request-item">
+                        <span class="username">{{ request.from_user.username }}</span> wants to connect.
+                        <div class="action-buttons">
+                            <form action="{% url 'accept_connection' request.id %}" method="post" class="action-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-accept">Accept</button>
+                            </form>
+                            <form action="{% url 'reject_connection' request.id %}" method="post" class="action-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-reject">Reject</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-requests">No incoming connection requests.</p>
+        {% endif %}
+    </div>
+
+    <style>
+        /* Container */
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            background: linear-gradient(135deg, #f3f4f6, #ffffff); /* Soft gradient background */
+        }
+
+        /* Title */
+        .page-title {
+            color: #007bff;
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Request List */
+        .request-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .request-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        .request-item:last-child {
+            border-bottom: none;
+        }
+
+        .request-item:hover {
+            background-color: #f1f1f1; /* Light hover effect for items */
+        }
+
+        .username {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .action-form {
+            display: inline;
+        }
+
+        /* Accept Button */
+        .btn-accept {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 30px; /* Rounded button */
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn-accept:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        /* Reject Button */
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 30px; /* Rounded button */
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn-reject:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        /* No Requests Message */
+        .no-requests {
+            color: #6c757d;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .page-title {
+                font-size: 22px; /* Smaller font for mobile devices */
+            }
+
+            .request-item {
+                font-size: 14px; /* Slightly smaller font for requests */
+                padding: 12px;
+            }
+
+            .btn-accept, .btn-reject {
+                font-size: 12px; /* Smaller button size for mobile */
+                padding: 8px 14px;
+            }
+        }
+    </style>
+{% endblock %}

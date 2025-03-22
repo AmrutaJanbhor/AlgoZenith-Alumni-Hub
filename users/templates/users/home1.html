@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+    <!-- Home Banner -->
+    <div class="home-container">
+        <h2>Welcome to <span>Alumni HUB </span> 🎓</h2>
+        <p>Build connections, grow professionally, and shape your future with alumni support.</p>
+    </div>
+
+    <!-- Background container -->
+    <div class="bg-container"></div>
+
+    <!-- Info Sections -->
+    <section class="info-container">
+        <div class="info-box">
+            <h3>📌 What is Alumni HUB ?</h3>
+            <p>
+                Alumni HUB is a dynamic platform designed to connect students and alumni, 
+                fostering professional relationships and career growth. Whether you're looking for mentorship, 
+                networking opportunities, job placements, or insights from experienced professionals, our platform provides 
+                a space for meaningful interactions and lifelong connections.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🚀 Why Join Alumni HUB ?</h3>
+            <ul>
+                <li><strong>🤝 Stay Connected:</strong> Keep in touch with batchmates, seniors, and juniors.</li>
+                <li><strong>🌎 Expand Your Network:</strong> Connect with professionals from diverse industries.</li>
+                <li><strong>💼 Career Growth:</strong> Access job listings, internships, and career guidance.</li>
+                <li><strong>🎓 Give Back:</strong> Offer mentorship and guidance to current students.</li>
+                <li><strong>📅 Stay Updated:</strong> Get notified about alumni reunions, industry events, and career fairs.</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📅 Alumni Events</h3>
+            <ul>
+                <li><strong>🤝 Networking Sessions:</strong> Meet and interact with alumni from different industries.</li>
+                <li><strong>🎤 Workshops & Webinars:</strong> Learn from experienced professionals and industry experts.</li>
+                <li><strong>🎉 Annual Reunions:</strong> Reconnect with old friends and relive campus memories.</li>
+                <li><strong>💼 Career Fairs:</strong> Exclusive job and internship opportunities from alumni-led organizations.</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>💼 Internships & Job Opportunities</h3>
+            <p>
+                Our platform provides a dedicated job portal where students can explore exclusive job and internship opportunities.
+                Alumni frequently post openings from their companies, making it easier for fresh graduates and students 
+                to find meaningful career opportunities.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Mentorship & Guidance</h3>
+            <p>
+                One of the biggest advantages of being part of Alumni HUB VDT is access to mentorship. 
+                Students can seek guidance from alumni in their respective fields, helping them make informed decisions 
+                about career choices, higher education, and skill development.
+            </p>
+        </div>
+
+        <div class="info-box">
+            <h3>🏆 Success Stories</h3>
+            <p>
+                Many students have successfully secured jobs and internships through Alumni HUB . Our mentorship program 
+                has helped young professionals navigate their careers with confidence, and our networking events have facilitated 
+                countless professional connections.
+            </p>
+        </div>
+    </section>
+
+    <style>
+        /* Home Page Banner */
+        .home-container {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border-radius: 15px;
+            max-width: 80%;
+            margin: 30px auto;
+            box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .home-container:hover {
+            transform: scale(1.02);
+        }
+
+        .home-container h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .home-container h2 span {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .home-container p {
+            font-size: 22px;
+            opacity: 0.9;
+        }
+
+        /* Background Image */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{% static 'images/alumnihub1.jpg' %}") no-repeat center center/cover;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Info Section */
+        .info-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 25px;
+            margin: 50px auto;
+            max-width: 90%;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+            max-width: 45%;
+            min-width: 320px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .info-box:hover {
+            transform: translateY(-7px);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-box h3 {
+            color: #0056b3;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-box p, .info-box ul {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            margin: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .home-container {
+                max-width: 95%;
+            }
+
+            .info-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-box {
+                max-width: 90%;
+                padding: 25px;
+            }
+
+            .home-container h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+{% endblock %}

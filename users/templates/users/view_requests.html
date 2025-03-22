@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        /* Pending Requests Container */
+        .pending-requests-container {
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .pending-requests-container:hover {
+            transform: scale(1.02);
+        }
+
+        .pending-requests-container h2 {
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Pending List */
+        .pending-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .pending-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .pending-list li:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-5px);
+        }
+
+        .pending-list li span {
+            font-size: 18px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .pending-requests-container {
+                max-width: 90%;
+                padding: 20px;
+            }
+
+            .pending-list li {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pending-list li span {
+                margin-bottom: 10px;
+            }
+
+            .btn {
+                width: 80%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+    <div class="pending-requests-container">
+        <h2>📬 Pending Connection Requests</h2>
+        <ul class="pending-list">
+            {% for req in pending_requests %}
+                <li>
+                    <span>👤 {{ req.sender.username }}</span>
+                    <div>
+                        <a href="{% url 'accept_request' req.id %}" class="btn btn-success">✅ Accept</a>
+                        <a href="{% url 'reject_request' req.id %}" class="btn btn-danger">❌ Reject</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No pending requests.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

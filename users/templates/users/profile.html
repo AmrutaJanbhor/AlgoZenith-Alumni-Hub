@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+
+    <!-- Profile Header -->
+    <h2 class="profile-header">👤 {{ user.username }}'s Profile</h2>
+
+    <!-- Profile Picture -->
+    {% load static %}
+    <div class="profile-pic-container">
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}?{{ profile.updated_at|default:0 }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture" class="profile-pic">
+        {% endif %}
+    </div>
+
+    <!-- Connect Button -->
+    <form action="{% url 'send_request' profile.user.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">➕ Connect</button>
+    </form>
+
+    <!-- Profile Details -->
+    <div class="profile-details">
+        <p><strong>👤 Username:</strong> {{ user.username }}</p>
+        <p><strong>📧 Email:</strong> {{ user.email }}</p>
+        <p><strong>🛠 Role:</strong> {{ user.get_role_display }}</p>
+    </div>
+
+    <!-- Profile Update Form -->
+    <form method="POST" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">🔄 Update Profile</button>
+    </form>
+
+    <!-- Bio Section -->
+    <div class="profile-bio">
+        <h3>📝 Bio:</h3>
+        <p>{{ profile.bio|default:"No bio available" }}</p>
+        <a href="{% url 'edit_bio' %}" class="btn btn-secondary">✏ Edit Bio</a>
+    </div>
+
+    
+
+   <!-- Connections Section -->
+<h3>🔗 Connections</h3>
+
+
+<a href="{% url 'view_connections' user.id %}" class="btn btn-secondary">🔍 View All Connections</a>
+
+    <!-- Education Section -->
+    <h3>🎓 Education</h3>
+    <ul class="profile-list">
+        {% for edu in user.education.all %}
+            <li>🎓 {{ edu.degree }} from {{ edu.institution }} ({{ edu.year_of_passing }})</li>
+        {% empty %}
+            <li>No education details added.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_education' %}" class="btn btn-secondary">➕ Add Education</a>
+
+    <!-- Work Experience Section -->
+    <h3>💼 Work Experience</h3>
+    <ul class="profile-list">
+        {% for exp in user.work_experience.all %}
+            <li>💼 {{ exp.position }} at {{ exp.company }} ({{ exp.start_year }} - {% if exp.end_year %}{{ exp.end_year }}{% else %}Present{% endif %})</li>
+        {% empty %}
+            <li>No work experience added.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_experience' %}" class="btn btn-secondary">➕ Add Experience</a>
+
+    <!-- Connection Request Button -->
+    {% if user != request.user %}
+        <a href="{% url 'send_request' user.id %}" class="btn btn-primary">➕ Connect</a>
+    {% endif %}
+
+    <!-- View Connection Requests -->
+    <h3>📬 Connection Requests</h3>
+    <ul class="profile-list">
+        {% for request_obj in pending_requests %}
+            <li>
+                <strong>{{ request_obj.sender.username }}</strong> wants to connect with you.
+                <a href="{% url 'accept_request' request_obj.id %}" class="btn btn-success">✅ Accept</a>
+                <a href="{% url 'reject_request' request_obj.id %}" class="btn btn-danger">❌ Reject</a>
+            </li>
+        {% empty %}
+            <li>No pending requests.</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<!-- Profile Page Styles -->
+<style>
+    .profile-container {
+        max-width: 750px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .profile-header {
+        font-size: 30px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .profile-pic-container {
+        margin-bottom: 20px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #007bff;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .mini-profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    .profile-details p {
+        font-size: 18px;
+        margin: 6px 0;
+        color: #444;
+    }
+
+    .profile-form {
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        margin: 10px 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.3s ease-in-out;
+        font-weight: bold;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    .profile-list {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+        text-align: left;
+    }
+
+    .profile-list li {
+        padding: 12px;
+        margin-bottom: 6px;
+        background: #f8f9fa;
+        border-left: 5px solid #007bff;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .profile-list li:hover {
+        background: #e2e6ea;
+    }
+</style>
+
+{% endblock %}
