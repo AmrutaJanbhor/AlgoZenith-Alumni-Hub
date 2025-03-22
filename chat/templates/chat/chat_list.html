@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .chat-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-container h2 {
+        color: #007bff;
+        text-align: center;
+    }
+
+    .chat-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .chat-list li {
+        background: #f8f9fa;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 5px solid #007bff;
+    }
+
+    .chat-link {
+        text-decoration: none;
+        font-weight: bold;
+        color: #007bff;
+        transition: 0.3s;
+    }
+
+    .chat-link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .no-connections {
+        text-align: center;
+        font-size: 16px;
+        color: #888;
+    }
+</style>
+
+<div class="chat-container">
+    <h2>💬 Chat</h2>
+    <p class="text-center">Select a user to start chatting:</p>
+
+    {% if connected_users %}
+        <ul class="chat-list">
+            {% for user in connected_users %}
+                <li>
+                    <span>🧑 {{ user.username }}</span>
+                    <a href="{% url 'chat_room' user.id %}" class="chat-link">Chat ➝</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-connections">🚀 No connections available for chat.</p>
+    {% endif %}
+</div>
+{% endblock %}
