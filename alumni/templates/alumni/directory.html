@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="directory-title">📜 User Directory</h2>
+
+<!-- Search Form -->
+<form method="GET" action="{% url 'alumni_directory' %}" class="search-form">
+    <input type="text" name="q" placeholder="🔍 Search users..." value="{{ query }}" class="search-input">
+    <button type="submit" class="search-button">Search</button>
+</form>
+
+<!-- User List -->
+{% if users %}
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>👤 Username</th>
+                    <th>📧 Email</th>
+                    <th>🔗 Connect</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user != request.user %}
+                                <form method="POST" action="{% url 'send_request' user.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="connect-btn">Connect</button>
+                                </form>
+                            {% else %}
+                                <span class="your-profile">Your Profile</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="no-users">🚫 No users found.</p>
+{% endif %}
+
+<style>
+    /* Page Title */
+    .directory-title {
+        text-align: center;
+        font-size: 32px;
+        color: #007bff;
+        margin-bottom: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Search Form */
+    .search-form {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    .search-input {
+        padding: 12px;
+        width: 60%;
+        max-width: 450px;
+        border: 2px solid #007bff;
+        border-radius: 30px;
+        font-size: 16px;
+        outline: none;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #0056b3;
+        box-shadow: 0 0 8px rgba(0, 86, 179, 0.4);
+    }
+
+    .search-button {
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 30px;
+        font-size: 16px;
+        margin-left: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Table Styling */
+    .table-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    .user-table {
+        width: 100%;
+        max-width: 950px;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .user-table thead {
+        background-color: #007bff;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    .user-table th, .user-table td {
+        padding: 18px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user-table th {
+        font-size: 16px;
+    }
+
+    .user-table td {
+        font-size: 14px;
+    }
+
+    .user-table tr {
+        transition: background-color 0.3s ease;
+    }
+
+    .user-table tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Connect Button */
+    .connect-btn {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .connect-btn:hover {
+        background-color: #218838;
+    }
+
+    /* Your Profile Text */
+    .your-profile {
+        font-size: 14px;
+        color: gray;
+    }
+
+    /* No Users Found */
+    .no-users {
+        text-align: center;
+        font-size: 18px;
+        color: #dc3545;
+        margin-top: 30px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .search-input {
+            width: 80%;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+        }
+
+        .user-table {
+            width: 100%;
+        }
+
+        .user-table th, .user-table td {
+            font-size: 14px;
+            padding: 12px;
+        }
+    }
+
+    /* Button Transition */
+    .search-button, .connect-btn {
+        transition: all 0.3s ease;
+    }
+</style>
+
+{% endblock %}
