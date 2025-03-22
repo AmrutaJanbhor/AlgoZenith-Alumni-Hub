@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Donations for "{{ event.title }}"</h2>
+
+<ul>
+    {% for donation in donations %}
+        <li>{{ donation.user.username }} donated ₹{{ donation.amount }} - "{{ donation.message }}"</li>
+    {% empty %}
+        <li>No donations yet. Be the first to donate!</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'event_detail' event.id %}">Back to Event</a>
+{% endblock %}

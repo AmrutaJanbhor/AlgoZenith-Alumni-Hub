@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .event-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .event-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .event-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .event-date {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .event-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .event-list li {
+        padding: 12px;
+        margin-bottom: 10px;
+        background: #f8f9fa;
+        border-left: 5px solid #007bff;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-details {
+        background-color: #007bff;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-details:hover {
+        background-color: #0056b3;
+    }
+
+    /* Category Filter */
+    .category-filter {
+        text-align: right;
+    }
+
+    .category-filter select {
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #007bff;
+        cursor: pointer;
+    }
+</style>
+
+<div class="event-container">
+    <!-- Header Section with Category Filter on the Right -->
+    <div class="event-header">
+        <h2 class="text-primary">📅 Upcoming Events</h2>
+
+        <!-- Filter by Category -->
+        <div class="category-filter">
+            <form method="GET">
+                <label for="category"><strong>Filter by Category:</strong></label>
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+                    <option value="Workshop" {% if selected_category == "Workshop" %}selected{% endif %}>Workshop</option>
+                    <option value="Seminar" {% if selected_category == "Seminar" %}selected{% endif %}>Seminar</option>
+                    <option value="Meetup" {% if selected_category == "Meetup" %}selected{% endif %}>Meetup</option>
+                    <option value="Fundraising" {% if selected_category == "Fundraising" %}selected{% endif %}>Fundraising</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    {% if events %}
+        <ul class="event-list">
+            {% for event in events %}
+                <li>
+                    <div>
+                        <span class="event-title">{{ event.title }}</span>
+                        <br>
+                        <span class="event-date">📆 {{ event.date }}</span>
+                    </div>
+                    <a href="{% url 'event_detail' event.id %}" class="btn-details">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info text-center mt-4">🚀 No upcoming events.</div>
+    {% endif %}
+</div>
+{% endblock %}
