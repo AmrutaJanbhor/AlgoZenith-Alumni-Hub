@@ -1,1 +1,1 @@
-We developed this project during our First hackathon-Algoforge
+We developed Alumni Hub project during our First hackathon-Algoforge
